@@ -10,7 +10,7 @@ pipeline {
                     def imageTag = "my-k8s-app:${env.BUILD_NUMBER}"
                     
 
-                    bat "docker build -t ${imageTag} ."
+                    bat "docker build -t ${imageTag} -f kube/Dockerfile ./kube"
                     
                    
                     bat "docker tag ${imageTag} your-registry-username/my-k8s-app:${env.BUILD_NUMBER}"
