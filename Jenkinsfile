@@ -8,7 +8,7 @@ pipeline {
                     def imageTag = "my-k8s-app:${env.BUILD_NUMBER}"
                     dir('kube') {
                         // 1. Build
-                        bat "docker build -t ${imageTag} ." 
+                       bat "docker build -t ${imageTag} -f Dockerfile ."
                         
                         // 2. Tag and Push (Ensure 'your-registry-username' is correct)
                         bat "docker tag ${imageTag} your-registry-username/my-k8s-app:${env.BUILD_NUMBER}"
@@ -32,11 +32,6 @@ pipeline {
                 script {
                     dir('kube') {
                         echo "Deploying application with image tag: ${env.IMAGE_TAG}"
-                        
-                        // 1. Update the image tag using sed (or PowerShell equivalent)
-                        // NOTE: Using 'sed' on Windows is fragile. Ensure you have sed or use PowerShell for string replacement.
-                        // If 'sed' fails, you may need to install it or use:
-                        // bat 'powershell -File update_yaml.ps1'
                         bat "sed -i 's|node-app-image-placeholder|${env.IMAGE_TAG}|g' node-app-deployment.yaml"
                         
                         // 2. Apply the manifest files to the Kubernetes cluster
