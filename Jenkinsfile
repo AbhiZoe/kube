@@ -11,10 +11,10 @@ pipeline {
                        bat "docker build -t ${imageTag} -f Dockerfile ."
                         
                         // 2. Tag and Push (Ensure 'your-registry-username' is correct)
-                        bat "docker tag ${imageTag} your-registry-username/my-k8s-app:${env.BUILD_NUMBER}"
-                        bat "docker push your-registry-username/my-k8s-app:${env.BUILD_NUMBER}"
+                        bat "docker tag ${imageTag} abhizoe/my-k8s-app:${env.BUILD_NUMBER}"
+                        bat "docker push abhizoe/my-k8s-app:${env.BUILD_NUMBER}"
                         
-                        env.IMAGE_TAG = "your-registry-username/my-k8s-app:${env.BUILD_NUMBER}"
+                        env.IMAGE_TAG = "abhizoe/my-k8s-app:${env.BUILD_NUMBER}"
                     }
                 }
             } // <--- REQUIRED: steps block closes here
